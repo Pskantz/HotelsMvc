@@ -85,5 +85,10 @@ namespace HotelApp.Controllers
             var bookedHotels = _context.Hotels.Where(h => h.IsBooked).ToList();
             return View(bookedHotels);
         }
+
+        public IActionResult Administrator()
+        {
+            return View();
+        }
     }
 }
