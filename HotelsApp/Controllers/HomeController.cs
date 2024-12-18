@@ -1,37 +1,89 @@
+using HotelApp.Data;
 using HotelApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelApp.Controllers
 {
     public class HomeController : Controller
     {
-        // Temporär lista för att lagra hotell
-        private static List<Hotel> _hotels = new List<Hotel>();
+        private readonly ApplicationDbContext _context;
 
-        // Visa startsidan med alla hotell
-        public IActionResult Index()
+        public HomeController(ApplicationDbContext context)
         {
-            return View(_hotels); // Skicka listan med hotell till vyn
+            _context = context;
         }
 
-        // Visa formulär för att lägga till hotell
+        // Visa alla hotell
+        public IActionResult Index()
+        {
+            var hotels = _context.Hotels.ToList();
+            return View(hotels);
+        }
+
+        // Skapa hotell - GET
         public IActionResult AddHotel()
         {
             return View();
         }
 
-        // Hantera indata från formuläret
+        // Skapa hotell - POST
         [HttpPost]
         public IActionResult AddHotel(Hotel hotel)
         {
             if (ModelState.IsValid)
             {
-                _hotels.Add(hotel); // Lägg till hotellet i listan
-                return RedirectToAction("Index"); // Skicka användaren till startsidan
+                _context.Hotels.Add(hotel);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
+            return View(hotel);
+        }
 
-            return View(hotel); // Om något är fel, visa formuläret igen
+        // Redigera hotell - GET
+        public IActionResult EditHotel(int id)
+        {
+            var hotel = _context.Hotels.FirstOrDefault(h => h.Id == id);
+            if (hotel == null)
+            {
+                return NotFound();
+            }
+            return View(hotel);
+        }
+
+        // Redigera hotell - POST
+        [HttpPost]
+        public IActionResult EditHotel(Hotel hotel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Hotels.Update(hotel);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(hotel);
+        }
+
+        // Boka hotell
+        [HttpPost]
+        public IActionResult BookHotel(int id)
+        {
+            var hotel = _context.Hotels.FirstOrDefault(h => h.Id == id);
+            if (hotel == null)
+            {
+                return NotFound();
+            }
+            hotel.IsBooked = true;
+            _context.Hotels.Update(hotel);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // Visa bokade hotell
+        public IActionResult BookedHotels()
+        {
+            var bookedHotels = _context.Hotels.Where(h => h.IsBooked).ToList();
+            return View(bookedHotels);
         }
     }
 }

@@ -1,0 +1,21 @@
+@model IEnumerable<HotelApp.Models.Hotel>
+
+<h1>Booked Hotels</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hotel in Model)
+        {
+            <tr>
+                <td>@hotel.Name</td>
+                <td><img src="@hotel.ImageUrl" alt="@hotel.Name" class="img-fluid" width="100" /></td>
+            </tr>
+        }
+    </tbody>
+</table>
