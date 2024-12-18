@@ -1,31 +1,37 @@
-using System.Diagnostics;
+using HotelApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using HotelsApp.Models;
+using System.Collections.Generic;
 
-namespace HotelsApp.Controllers;
-
-public class HomeController : Controller
+namespace HotelApp.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public class HomeController : Controller
     {
-        _logger = logger;
-    }
+        // Temporär lista för att lagra hotell
+        private static List<Hotel> _hotels = new List<Hotel>();
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+        // Visa startsidan med alla hotell
+        public IActionResult Index()
+        {
+            return View(_hotels); // Skicka listan med hotell till vyn
+        }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        // Visa formulär för att lägga till hotell
+        public IActionResult AddHotel()
+        {
+            return View();
+        }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        // Hantera indata från formuläret
+        [HttpPost]
+        public IActionResult AddHotel(Hotel hotel)
+        {
+            if (ModelState.IsValid)
+            {
+                _hotels.Add(hotel); // Lägg till hotellet i listan
+                return RedirectToAction("Index"); // Skicka användaren till startsidan
+            }
+
+            return View(hotel); // Om något är fel, visa formuläret igen
+        }
     }
 }
