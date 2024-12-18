@@ -1,22 +1,15 @@
 @model HotelApp.Models.Hotel
 
-<h1>Add a Hotel</h1>
+<h1>Add Hotel</h1>
 
-<form asp-action="AddHotel" method="post">
+<form method="post">
     <div class="form-group">
         <label for="Name">Hotel Name</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <input type="text" class="form-control" id="Name" name="Name" required />
     </div>
     <div class="form-group">
         <label for="ImageUrl">Image URL</label>
-        <input asp-for="ImageUrl" class="form-control" />
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        <input type="text" class="form-control" id="ImageUrl" name="ImageUrl" required />
     </div>
-    @* <div class="form-group"> 
-        <label for="IsBooked">Is Booked?</label>
-        <input asp-for="IsBooked" type="checkbox" />
-    </div>
-    *@
-    <button type="submit" class="btn btn-primary">Add Hotel</button>
+    <button type="submit" class="btn btn-primary mt-3">Add Hotel</button>
 </form>
