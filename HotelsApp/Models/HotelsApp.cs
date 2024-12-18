@@ -1,6 +1,6 @@
-namespace HotelsMvc.Models;
+namespace HotelsApp.Models;
 
-public class HotelsApp
+public class Hotel
 {
     public int Id { get; set; }
     public string Name { get; set; } = "";
