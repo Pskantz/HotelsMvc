@@ -1,0 +1,19 @@
+@model HotelApp.Models.Hotel
+@{
+    ViewData["Title"] = "Edit Hotel";
+}
+
+<h1>Edit Hotel</h1>
+
+<form method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div>
+        <label for="Name">Name</label>
+        <input type="text" id="Name" name="Name" value="@Model.Name" required />
+    </div>
+    <div>
+        <label for="ImageUrl">Image URL</label>
+        <input type="text" id="ImageUrl" name="ImageUrl" value="@Model.ImageUrl" required />
+    </div>
+    <button type="submit" class="btn">Update</button>
+</form>
