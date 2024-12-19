@@ -2,39 +2,30 @@
 
 <h1>Hotels</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Booked</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var hotel in Model)
-        {
-            <tr>
-                <td>@hotel.Name</td>
-                <td><img src="@hotel.ImageUrl" alt="@hotel.Name" class="img-fluid" width="100" /></td>
-                <td>@(hotel.IsBooked ? "Yes" : "No")</td>
-                <td>
-                    @if (!hotel.IsBooked)
+<div class="row">
+    @foreach (var hotel in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="@hotel.ImageUrl" class="card-img-top" alt="@hotel.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@hotel.Name</h5>
+                    <p class="card-text">@hotel.Location</p>
+                    <p class="card-text">Price per night: @hotel.Price</p>
+                    @if (User.Identity?.Name == "admin@exampel.com")
                     {
-                        <form asp-action="BookHotel" method="post">
+                        <a href="@Url.Action("EditHotel", new { id = hotel.Id })" class="btn btn-warning">Edit</a>
+                        <form asp-action="DeleteHotel" method="post" style="display:inline;">
                             <input type="hidden" name="id" value="@hotel.Id" />
-                            <button type="submit" class="btn btn-success">Book</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     }
                     else
                     {
-                        <button class="btn btn-success" disabled>Booked</button>
+                        <a href="@Url.Action("BookHotel", new { id = hotel.Id })" class="btn btn-primary">Book Now</a>
                     }
-                    <a href="@Url.Action("EditHotel", new { id = hotel.Id })" class="btn btn-warning">Edit</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-@* <a href="@Url.Action("AddHotel")" class="btn btn-primary">Add Hotel</a> *@
+                </div>
+            </div>
+        </div>
+    }
+</div>
