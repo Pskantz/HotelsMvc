@@ -1,12 +1,23 @@
+@using HotelApp.Models
 @model BookViewModel
 
-<h1>Thank you for booking</h1>
-
-<div class=" card-body card form-group">
-    <div class=" card">
-        <strong>Name:@Model.Name</strong>
-        <strong>Email:@Model.Email</strong>
-        <strong>Rooms:@Model.NumOfRooms</strong>
-        <strong>Hotel:@Model.Hotel</strong>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verification</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Verification</h1>
+        <p>Name: @Model.Name</p>
+        <p>Email: @Model.Email</p>
+        <p>Hotel: @Model.Hotel</p>
+        <p>Check-In: @Model.CheckIn.ToShortDateString()</p>
+        <p>Check-Out: @Model.CheckOut.ToShortDateString()</p>
     </div>
-</div>
+</body>
+</html>

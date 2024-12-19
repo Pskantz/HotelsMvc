@@ -1,14 +1,13 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace HotelsApp.Models;
-
-public class BookViewModel
+namespace HotelApp.Models
 {
-    public string Name { get; set; }
-
-    public string Email { get; set; }
-
-    public int NumOfRooms { get; set; }
-
-    public Hotel Hotel { get; set; }
+    public class BookViewModel
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public DateTime CheckIn { get; set; }
+        public DateTime CheckOut { get; set; }
+        public string Hotel { get; set; } = string.Empty;
+        public string RoomType { get; set; } = string.Empty;
+        public decimal Price { get; set; }
+    }
 }
