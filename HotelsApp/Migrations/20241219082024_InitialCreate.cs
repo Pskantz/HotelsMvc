@@ -60,7 +60,9 @@ namespace HotelsApp.Migrations
                     CustomerName = table.Column<string>(type: "text", nullable: false),
                     CheckIn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Hotel = table.Column<string>(type: "text", nullable: false)
+                    Hotel = table.Column<string>(type: "text", nullable: false),
+                    RoomType = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,7 +78,8 @@ namespace HotelsApp.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Location = table.Column<string>(type: "text", nullable: false),
                     IsBooked = table.Column<bool>(type: "boolean", nullable: false),
-                    ImageUrl = table.Column<string>(type: "text", nullable: false)
+                    ImageUrl = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
