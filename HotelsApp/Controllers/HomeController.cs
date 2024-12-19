@@ -140,6 +140,7 @@ namespace HotelApp.Controllers
         [HttpPost]
         public IActionResult EditBooking(Booking booking)
         {
+            // var booking = _context.Bookings.FirstOrDefault(b => b.Id == id);
             if (ModelState.IsValid)
             {
                 booking.CheckIn = DateTime.SpecifyKind(booking.CheckIn, DateTimeKind.Utc);
