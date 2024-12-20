@@ -17,7 +17,7 @@
         @foreach (var booking in Model)
         {
             <tr>
-                <td>@booking.Hotel</td>
+                <td>@booking.Hotel?.Name</td>
                 <td>@booking.RoomType</td>
                 <td>@booking.Price</td>
                 <td>@booking.CheckIn.ToShortDateString()</td>
