@@ -11,12 +11,16 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm">
+        <nav class="navbar navbar-expand-md">
             <div class="container">
                 <a class="navbar-brand position-relative start-50 translate-middle-x" asp-area="" asp-controller="Home"
-                    asp-action="Index" style="font-size: 30px;;">HotelApp</a>
+                    asp-action="Index" style="font-size: 30px;">HotelApp</a>
 
-
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false"
+                    aria-label="Toggle navigation" style="border: none; outline: none;">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <div class="collapse navbar-collapse form-group justify-content-end" id="navbarMenu">
                     <ul class="navbar-nav ms-auto">
@@ -63,6 +67,8 @@
             </div>
         </nav>
     </header>
+
+
     <div class="container">
         @if (TempData["SuccessMessage"] != null)
         {
@@ -75,7 +81,7 @@
         </main>
     </div>
 
-    <footer class="footer fixed-bottom text-muted" style="height: 30px">
+    <footer class="footer position-relative text-muted" style="height: 30px">
         <div class="text-center">
             &copy; 2024 - HotelsApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
