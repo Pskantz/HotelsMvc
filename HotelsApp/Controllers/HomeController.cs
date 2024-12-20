@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using HotelApp.Data;
 using HotelApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelApp.Controllers
 {
@@ -85,6 +86,7 @@ namespace HotelApp.Controllers
             }
             var model = new BookViewModel
             {
+                HotelId = id,
                 Hotel = hotel.Name,
                 Price = hotel.Price
             };
@@ -100,12 +102,18 @@ namespace HotelApp.Controllers
                 var customerName = User.Identity?.Name ?? string.Empty;
                 var nights = (model.CheckOut - model.CheckIn).Days;
                 var totalPrice = model.Price * nights;
+                var hotel = _context.Hotels.FirstOrDefault(h => h.Id == model.HotelId);
+                if (hotel == null)
+                {
+                    return NotFound();
+                }
+
                 var booking = new Booking
                 {
                     CustomerName = customerName,
                     CheckIn = DateTime.SpecifyKind(model.CheckIn, DateTimeKind.Utc),
                     CheckOut = DateTime.SpecifyKind(model.CheckOut, DateTimeKind.Utc),
-                    Hotel = model.Hotel,
+                    Hotel = hotel,
                     RoomType = model.RoomType,
                     Price = totalPrice
                 };
@@ -121,14 +129,14 @@ namespace HotelApp.Controllers
         public IActionResult BookedHotels()
         {
             var userName = User.Identity?.Name;
-            var bookings = _context.Bookings.Where(b => b.CustomerName == userName).ToList();
+            var bookings = _context.Bookings.Include(b => b.Hotel).Where(b => b.CustomerName == userName).ToList();
             return View(bookings);
         }
 
         // Redigera bokning - GET
         public IActionResult EditBooking(int id)
         {
-            var booking = _context.Bookings.FirstOrDefault(b => b.Id == id);
+            var booking = _context.Bookings.Include(b => b.Hotel).FirstOrDefault(b => b.Id == id);
             if (booking == null)
             {
                 return NotFound();
@@ -145,6 +153,11 @@ namespace HotelApp.Controllers
             {
                 booking.CheckIn = DateTime.SpecifyKind(booking.CheckIn, DateTimeKind.Utc);
                 booking.CheckOut = DateTime.SpecifyKind(booking.CheckOut, DateTimeKind.Utc);
+                
+                var nights = (booking.CheckOut - booking.CheckIn).Days;
+                var totalPrice = booking.Price * nights;
+                booking.Price = totalPrice;
+
                 _context.Bookings.Update(booking);
                 _context.SaveChanges();
                 return RedirectToAction("BookedHotels");

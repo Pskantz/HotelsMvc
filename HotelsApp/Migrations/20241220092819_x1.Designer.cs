@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotelsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241219082024_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241220092819_x1")]
+    partial class x1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,9 +43,8 @@ namespace HotelsApp.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Hotel")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int?>("HotelId")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
@@ -55,6 +54,8 @@ namespace HotelsApp.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
 
                     b.ToTable("Bookings");
                 });
@@ -284,6 +285,15 @@ namespace HotelsApp.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("HotelApp.Models.Booking", b =>
+                {
+                    b.HasOne("HotelApp.Models.Hotel", "Hotel")
+                        .WithMany()
+                        .HasForeignKey("HotelId");
+
+                    b.Navigation("Hotel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
