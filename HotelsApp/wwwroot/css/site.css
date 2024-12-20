@@ -6,6 +6,19 @@
     transition: transform 0.2s;
 }
 
+.card-2 {
+    border: rgb(0, 0, 0);
+    width: 50%;
+    margin: 0 auto;
+    padding: 5px;
+    padding-left: 20px;
+    justify-content: center;
+
+    /* box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.219); */
+    border-radius: 10px;
+    /* transition: transform 0.2s; */
+}
+
 .card:hover {
     transform: scale(1.05);
 }
