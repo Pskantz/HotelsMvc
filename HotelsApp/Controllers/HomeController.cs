@@ -153,6 +153,11 @@ namespace HotelApp.Controllers
             {
                 booking.CheckIn = DateTime.SpecifyKind(booking.CheckIn, DateTimeKind.Utc);
                 booking.CheckOut = DateTime.SpecifyKind(booking.CheckOut, DateTimeKind.Utc);
+                
+                var nights = (booking.CheckOut - booking.CheckIn).Days;
+                var totalPrice = booking.Price * nights;
+                booking.Price = totalPrice;
+
                 _context.Bookings.Update(booking);
                 _context.SaveChanges();
                 return RedirectToAction("BookedHotels");
