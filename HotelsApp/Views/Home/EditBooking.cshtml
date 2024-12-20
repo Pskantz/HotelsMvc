@@ -8,7 +8,7 @@
     </div>
     <div class="form-group">
         <label for="Hotel">Hotel</label>
-        <input type="text" class="form-control" id="Hotel" name="Hotel" value="@Model.Hotel" readonly />
+        <input type="text" class="form-control" id="Hotel" name="Hotel" value="@Model.Hotel.Name" readonly />
     </div>
     <div class="form-group">
         <label for="RoomType">Room Type</label>
@@ -28,7 +28,7 @@
     </div>
     <div class="form-group">
         <label for="Price">Price per Night</label>
-        <input type="number" class="form-control" id="Price" name="Price" value="@Model.Price" readonly />
+        <input type="number" class="form-control" id="Price" name="Price" value="@Model.Hotel.Price" readonly />
     </div>
     <button type="submit" class="btn btn-primary mt-3">Book</button>
 </form>

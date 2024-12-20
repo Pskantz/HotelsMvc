@@ -136,7 +136,7 @@ namespace HotelApp.Controllers
         // Redigera bokning - GET
         public IActionResult EditBooking(int id)
         {
-            var booking = _context.Bookings.FirstOrDefault(b => b.Id == id);
+            var booking = _context.Bookings.Include(b => b.Hotel).FirstOrDefault(b => b.Id == id);
             if (booking == null)
             {
                 return NotFound();
