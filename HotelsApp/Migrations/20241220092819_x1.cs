@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotelsApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class x1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,24 +49,6 @@ namespace HotelsApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Bookings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CustomerName = table.Column<string>(type: "text", nullable: false),
-                    CheckIn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CheckOut = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Hotel = table.Column<string>(type: "text", nullable: false),
-                    RoomType = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bookings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,6 +174,29 @@ namespace HotelsApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Bookings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CustomerName = table.Column<string>(type: "text", nullable: false),
+                    CheckIn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CheckOut = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    HotelId = table.Column<int>(type: "integer", nullable: true),
+                    RoomType = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bookings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Hotels_HotelId",
+                        column: x => x.HotelId,
+                        principalTable: "Hotels",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -228,6 +233,11 @@ namespace HotelsApp.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_HotelId",
+                table: "Bookings",
+                column: "HotelId");
         }
 
         /// <inheritdoc />
@@ -252,13 +262,13 @@ namespace HotelsApp.Migrations
                 name: "Bookings");
 
             migrationBuilder.DropTable(
-                name: "Hotels");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Hotels");
         }
     }
 }
