@@ -101,12 +101,24 @@ namespace HotelApp.Controllers
             {
                 var customerName = User.Identity?.Name ?? string.Empty;
                 var nights = (model.CheckOut - model.CheckIn).Days;
-                var totalPrice = model.Price * nights;
                 var hotel = _context.Hotels.FirstOrDefault(h => h.Id == model.HotelId);
                 if (hotel == null)
                 {
                     return NotFound();
                 }
+
+                decimal roomPrice = hotel.Price;
+                switch (model.RoomType)
+                {
+                    case "Double":
+                        roomPrice *= 1.3m; // Increase by 20%
+                        break;
+                    case "Suite":
+                        roomPrice *= 1.6m; // Increase by 50%
+                        break;
+                }
+
+                var totalPrice = roomPrice * nights;
 
                 var booking = new Booking
                 {
@@ -145,23 +157,48 @@ namespace HotelApp.Controllers
         }
 
         // Redigera bokning - POST
+        // Redigera bokning - POST
         [HttpPost]
         public IActionResult EditBooking(Booking booking)
         {
-            // var booking = _context.Bookings.FirstOrDefault(b => b.Id == id);
             if (ModelState.IsValid)
             {
                 booking.CheckIn = DateTime.SpecifyKind(booking.CheckIn, DateTimeKind.Utc);
                 booking.CheckOut = DateTime.SpecifyKind(booking.CheckOut, DateTimeKind.Utc);
-                
+
                 var nights = (booking.CheckOut - booking.CheckIn).Days;
-                var totalPrice = booking.Price * nights;
+
+                if (booking.Hotel == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Hotel information is missing.");
+                    return View(booking);
+                }
+
+                var hotel = _context.Hotels.FirstOrDefault(h => h.Id == booking.Hotel.Id);
+                if (hotel == null)
+                {
+                    return NotFound();
+                }
+
+                decimal roomPrice = hotel.Price;
+                switch (booking.RoomType)
+                {
+                    case "Double":
+                        roomPrice *= 1.2m; // Increase by 20%
+                        break;
+                    case "Suite":
+                        roomPrice *= 1.5m; // Increase by 50%
+                        break;
+                }
+
+                var totalPrice = roomPrice * nights;
                 booking.Price = totalPrice;
 
                 _context.Bookings.Update(booking);
                 _context.SaveChanges();
                 return RedirectToAction("BookedHotels");
             }
+
             return View(booking);
         }
 
