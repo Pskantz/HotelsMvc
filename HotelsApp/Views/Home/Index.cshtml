@@ -20,9 +20,11 @@
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     }
-                    else
+                    else if (User.Identity?.Name != null)
                     {
                         <a href="@Url.Action("BookHotel", new { id = hotel.Id })" class="btn btn-primary">Book Now</a>
+                    } else {
+                        <p>Log in to book</p>
                     }
                 </div>
             </div>

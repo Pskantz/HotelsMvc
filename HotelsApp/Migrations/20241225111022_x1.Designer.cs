@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotelsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241220092819_x1")]
+    [Migration("20241225111022_x1")]
     partial class x1
     {
         /// <inheritdoc />

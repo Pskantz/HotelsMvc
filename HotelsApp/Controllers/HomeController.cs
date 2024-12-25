@@ -111,10 +111,10 @@ namespace HotelApp.Controllers
                 switch (model.RoomType)
                 {
                     case "Double":
-                        roomPrice *= 1.3m; // Increase by 20%
+                        roomPrice *= 1.2m; // Increase by 20%
                         break;
                     case "Suite":
-                        roomPrice *= 1.6m; // Increase by 50%
+                        roomPrice *= 1.5m; // Increase by 50%
                         break;
                 }
 
