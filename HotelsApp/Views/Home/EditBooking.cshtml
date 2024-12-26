@@ -25,15 +25,18 @@
     </div>
     <div class="form-group">
         <label for="CheckIn">Check-In Date</label>
-        <input type="date" class="form-control" id="CheckIn" name="CheckIn" value="@Model.CheckIn.ToString("yyyy-MM-dd")" required />
+        <input type="date" class="form-control" id="CheckIn" name="CheckIn" value="@Model.CheckIn.ToString("yyyy-MM-dd")" required onchange="CalculateTotalPrice()"/>
     </div>
     <div class="form-group">
         <label for="CheckOut">Check-Out Date</label>
-        <input type="date" class="form-control" id="CheckOut" name="CheckOut" value="@Model.CheckOut.ToString("yyyy-MM-dd")" required />
+        <input type="date" class="form-control" id="CheckOut" name="CheckOut" value="@Model.CheckOut.ToString("yyyy-MM-dd")" required onchange="CalculateTotalPrice()"/>
     </div>
     <div class="form-group">
         <label for="Price">Price per Night</label>
         <input type="number" class="form-control" id="Price" name="Price" value="@Model.Hotel?.Price" readonly />
+    </div>
+    <div class="form-group">
+        Total Price: <span id="total-price"></span>
     </div>
     <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
 </form>
@@ -52,9 +55,35 @@
             newPrice = basePrice * 1.5;
         }
         ShownPrice.value = newPrice;
+
+        CalculateTotalPrice()
     }
 
-    
-UpdatePrice()
+    function CalculateTotalPrice() {
+        const totalPriceSpan = document.getElementById("total-price");
+        const checkIn = document.getElementById("CheckIn").value;
+        const checkOut = document.getElementById("CheckOut").value;
 
+        if (checkIn && checkOut) {
+            const date1 = new Date(checkIn)
+            const date2 = new Date(checkOut)
+
+            const timeDifference = date2 - date1
+
+            const numberOfDays = timeDifference / (1000 * 60 * 60 * 24);
+
+            if (numberOfDays > 0) {
+                const pricePerNight = document.getElementById("Price").value;
+                const totalPrice = pricePerNight * numberOfDays;
+                totalPriceSpan.innerHTML = "Total price: " + totalPrice + ", for " + numberOfDays + " nights."
+            } else {
+                totalPriceSpan.innerHTML = "Check-out date must be after the check-in date.";
+            }
+
+        } else {
+            totalPriceSpan.innerHTML = "Please select both check-in and check-out dates.";
+        }
+    }
+    CalculateTotalPrice()
+    UpdatePrice()
 </script>
