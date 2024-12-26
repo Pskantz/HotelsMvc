@@ -125,6 +125,7 @@ namespace HotelApp.Controllers
                     CustomerName = customerName,
                     CheckIn = DateTime.SpecifyKind(model.CheckIn, DateTimeKind.Utc),
                     CheckOut = DateTime.SpecifyKind(model.CheckOut, DateTimeKind.Utc),
+                    HotelId = model.HotelId,
                     Hotel = hotel,
                     RoomType = model.RoomType,
                     Price = totalPrice

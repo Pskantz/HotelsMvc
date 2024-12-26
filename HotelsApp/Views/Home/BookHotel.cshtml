@@ -4,8 +4,12 @@
 
 <form method="post">
     <div class="form-group">
+        <label for="Hotel"></label>
+        <input type="hidden" class="form-control" id="Hotel" name="HotelId" value="@Model.HotelId" readonly />
+    </div>
+    <div class="form-group">
         <label for="Hotel">Hotel</label>
-        <input type="text" class="form-control" id="Hotel" name="HotelId" value="@Model.HotelId" readonly />
+        <input type="text" class="form-control" id="Hotel" name="HotelId" value="@Model.Hotel" readonly />
     </div>
     <div class="form-group">
         <label for="RoomType">Room Type</label>
