@@ -111,10 +111,10 @@ namespace HotelApp.Controllers
                 switch (model.RoomType)
                 {
                     case "Double":
-                        roomPrice *= 1.3m; // Increase by 20%
+                        roomPrice *= 1.2m; // Increase by 20%
                         break;
                     case "Suite":
-                        roomPrice *= 1.6m; // Increase by 50%
+                        roomPrice *= 1.5m; // Increase by 50%
                         break;
                 }
 
@@ -125,6 +125,7 @@ namespace HotelApp.Controllers
                     CustomerName = customerName,
                     CheckIn = DateTime.SpecifyKind(model.CheckIn, DateTimeKind.Utc),
                     CheckOut = DateTime.SpecifyKind(model.CheckOut, DateTimeKind.Utc),
+                    HotelId = model.HotelId,
                     Hotel = hotel,
                     RoomType = model.RoomType,
                     Price = totalPrice
@@ -157,7 +158,6 @@ namespace HotelApp.Controllers
         }
 
         // Redigera bokning - POST
-        // Redigera bokning - POST
         [HttpPost]
         public IActionResult EditBooking(Booking booking)
         {
@@ -168,13 +168,13 @@ namespace HotelApp.Controllers
 
                 var nights = (booking.CheckOut - booking.CheckIn).Days;
 
-                if (booking.Hotel == null)
-                {
-                    ModelState.AddModelError(string.Empty, "Hotel information is missing.");
-                    return View(booking);
-                }
+                // if (booking.Hotel == null)
+                // {
+                //     ModelState.AddModelError(string.Empty, "Hotel information is missing.");
+                //     return View(booking);
+                // }
 
-                var hotel = _context.Hotels.FirstOrDefault(h => h.Id == booking.Hotel.Id);
+                var hotel = _context.Hotels.FirstOrDefault(h => h.Id == booking.HotelId);
                 if (hotel == null)
                 {
                     return NotFound();
