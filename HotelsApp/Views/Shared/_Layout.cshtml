@@ -7,85 +7,114 @@
     <title class="justify-content-center align-items-center">@ViewData["Title"] - HotelApp</title>
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Full viewport height */
+        }
+
+        .content {
+            flex: 1;
+            /* Pushes the footer to the bottom */
+        }
+
+        .footer {
+            height: 30px;
+            line-height: 30px;
+            padding-bottom: 3%;
+        }
+    </style>
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-md">
-            <div class="container">
-                <a class="navbar-brand position-relative start-50 translate-middle-x" asp-area="" asp-controller="Home"
-                    asp-action="Index" style="font-size: 30px;">HotelApp</a>
+    <div class="wrapper">
 
-                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false"
-                    aria-label="Toggle navigation" style="border: none; outline: none;">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <header>
+            <nav class="navbar navbar-expand-md">
+                <div class="container">
+                    <a class="navbar-brand position-relative start-50 translate-middle-x" asp-area=""
+                        asp-controller="Home" asp-action="Index" style="font-size: 30px;">HotelApp</a>
 
-                <div class="collapse navbar-collapse form-group justify-content-end" id="navbarMenu">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Home"
-                                asp-action="Index">Home</a>
-                        </li>
-                        @if (User.Identity?.IsAuthenticated == true && User.Identity?.Name != "admin@exampel.com")
-                        {
+                    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false"
+                        aria-label="Toggle navigation" style="border: none; outline: none;">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse form-group justify-content-end" id="navbarMenu">
+                        <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
                                 <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Home"
-                                    asp-action="BookedHotels">Reservations</a>
+                                    asp-action="Index">Home</a>
                             </li>
-                        }
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            if (User.Identity?.Name == "admin@exampel.com")
+                            @if (User.Identity?.IsAuthenticated == true && User.Identity?.Name != "admin@exampel.com")
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Home"
-                                        asp-action="AddHotel">Add Hotel</a>
+                                        asp-action="BookedHotels">Reservations</a>
                                 </li>
                             }
-                            <li class="nav-item">
-                                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
-                                    <button type="submit"
-                                        class="nav-link btn btn-link text-dark text-end me-3">Logout</button>
-                                </form>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Account"
-                                    asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Account"
-                                    asp-action="Register">Register</a>
-                            </li>
-                        }
-                    </ul>
+                            @if (User.Identity?.IsAuthenticated == true)
+                            {
+                                if (User.Identity?.Name == "admin@exampel.com")
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Home"
+                                            asp-action="AddHotel">Add Hotel</a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                                        <button type="submit"
+                                            class="nav-link btn btn-link text-dark text-end me-3">Logout</button>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Account"
+                                        asp-action="Login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Account"
+                                        asp-action="Register">Register</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
 
 
-    <div class="container">
-        @if (TempData["SuccessMessage"] != null)
-        {
-            <div class="alert alert-success">
-                @TempData["SuccessMessage"]
-            </div>
-        }
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="footer position-relative text-muted" style="height: 30px">
-        <div class="text-center">
-            &copy; 2024 - HotelsApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+        <div class="content">
+            <footer class="footer position-relative text-muted">
+                <div class="text-center">
+                    &copy; 2024 - HotelsApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </footer>
+        </div>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
