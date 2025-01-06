@@ -40,7 +40,7 @@ namespace HotelsApp.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("HotelId")
+                    b.Property<int>("HotelId")
                         .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
@@ -288,7 +288,9 @@ namespace HotelsApp.Migrations
                 {
                     b.HasOne("HotelApp.Models.Hotel", "Hotel")
                         .WithMany()
-                        .HasForeignKey("HotelId");
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Hotel");
                 });

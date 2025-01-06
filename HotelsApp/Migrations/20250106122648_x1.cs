@@ -183,7 +183,7 @@ namespace HotelsApp.Migrations
                     CustomerName = table.Column<string>(type: "text", nullable: false),
                     CheckIn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    HotelId = table.Column<int>(type: "integer", nullable: true),
+                    HotelId = table.Column<int>(type: "integer", nullable: false),
                     RoomType = table.Column<string>(type: "text", nullable: false),
                     Price = table.Column<decimal>(type: "numeric", nullable: false)
                 },
@@ -194,7 +194,8 @@ namespace HotelsApp.Migrations
                         name: "FK_Bookings_Hotels_HotelId",
                         column: x => x.HotelId,
                         principalTable: "Hotels",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
