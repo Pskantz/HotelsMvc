@@ -36,7 +36,6 @@
 
 <body>
     <div class="wrapper">
-
         <header>
             <nav class="navbar navbar-expand-md">
                 <div class="container">
@@ -95,25 +94,25 @@
             </nav>
         </header>
 
-
-        <div class="container">
-            @if (TempData["SuccessMessage"] != null)
-            {
-                <div class="alert alert-success">
-                    @TempData["SuccessMessage"]
-                </div>
-            }
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
         <div class="content">
-            <footer class="footer position-relative text-muted">
-                <div class="text-center">
-                    &copy; 2024 - HotelsApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </div>
-            </footer>
+            <div class="container">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
         </div>
+
+        <footer class="footer text-muted text-center">
+            <div class="container">
+                &copy; 2024 - HotelsApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
