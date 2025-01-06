@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <h5 class="card-title">@hotel.Name</h5>
                     <p class="card-text">@hotel.Location</p>
-                    <p class="card-text">Price per night: @hotel.Price</p>
+                    <p class="card-text">Price per night: @hotel.Price €</p>
                     @if (User.Identity?.Name == "admin@exampel.com")
                     {
                         <a href="@Url.Action("EditHotel", new { id = hotel.Id })" class="btn btn-warning">Edit</a>

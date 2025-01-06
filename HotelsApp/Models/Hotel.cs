@@ -9,7 +9,7 @@ namespace HotelApp.Models
         public string Name { get; set; } = string.Empty;
         public string Location { get; set; } = string.Empty;
         public bool IsBooked { get; set; }
-        public string ImageUrl { get; set; } = string.Empty; // Lägg till denna rad
-        public decimal Price { get; set; }  // Lägg till Price här
+        public string ImageUrl { get; set; } = string.Empty;
+        public decimal Price { get; set; } 
     }
 }
