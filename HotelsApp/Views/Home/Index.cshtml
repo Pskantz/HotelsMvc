@@ -2,7 +2,14 @@
 
 <h1>Hotels</h1>
 
-<div class="row">
+<form method="get" asp-controller="Home" asp-action="Index">
+    <div class="form-group">
+        <input type="text" name="searchString" class="form-control" placeholder="Search hotels..." value="@ViewData["CurrentFilter"]" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<div class="row mt-3">
     @foreach (var hotel in Model)
     {
         <div class="col-md-4">
@@ -23,7 +30,9 @@
                     else if (User.Identity?.Name != null)
                     {
                         <a href="@Url.Action("BookHotel", new { id = hotel.Id })" class="btn btn-primary">Book Now</a>
-                    } else {
+                    }
+                    else
+                    {
                         <p>Log in to book</p>
                     }
                 </div>

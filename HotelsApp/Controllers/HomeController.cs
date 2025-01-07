@@ -16,11 +16,19 @@ namespace HotelApp.Controllers
             _context = context;
         }
 
-        // Visa alla hotell
-        public IActionResult Index()
+       public IActionResult Index(string searchString)
         {
-            var hotels = _context.Hotels.ToList();
-            return View(hotels);
+            ViewData["CurrentFilter"] = searchString;
+
+            var hotels = from h in _context.Hotels
+                         select h;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                hotels = hotels.Where(s => s.Name.Contains(searchString) || s.Location.Contains(searchString));
+            }
+
+            return View(hotels.ToList());
         }
 
         // Skapa hotell - GET

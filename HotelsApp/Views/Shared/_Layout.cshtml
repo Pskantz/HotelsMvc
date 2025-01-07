@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,17 +7,16 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
-
 <body>
     <header>
         <nav class="navbar navbar-expand-md">
             <div class="container">
                 <a class="navbar-brand position-relative start-50 translate-middle-x" asp-area="" asp-controller="Home"
-                    asp-action="Index" style="font-size: 30px;">HotelApp</a>
+                   asp-action="Index" style="font-size: 30px;">HotelApp</a>
 
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false"
-                    aria-label="Toggle navigation" style="border: none; outline: none;">
+                        data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false"
+                        aria-label="Toggle navigation" style="border: none; outline: none;">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -26,9 +24,9 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Home"
-                                asp-action="Index">Home</a>
+                               asp-action="Index">Home</a>
                         </li>
-                        @if (User.Identity?.IsAuthenticated == true && User.Identity?.Name != "admin@exampel.com")
+                         @if (User.Identity?.IsAuthenticated == true && User.Identity?.Name != "admin@exampel.com")
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Home"
@@ -41,13 +39,13 @@
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Home"
-                                        asp-action="AddHotel">Add Hotel</a>
+                                       asp-action="AddHotel">Add Hotel</a>
                                 </li>
                             }
                             <li class="nav-item">
                                 <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
                                     <button type="submit"
-                                        class="nav-link btn btn-link text-dark text-end me-3">Logout</button>
+                                            class="nav-link btn btn-link text-dark text-end me-3">Logout</button>
                                 </form>
                             </li>
                         }
@@ -55,11 +53,11 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Account"
-                                    asp-action="Login">Login</a>
+                                   asp-action="Login">Login</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark text-end me-3" asp-area="" asp-controller="Account"
-                                    asp-action="Register">Register</a>
+                                   asp-action="Register">Register</a>
                             </li>
                         }
                     </ul>
@@ -68,9 +66,8 @@
         </nav>
     </header>
 
-
     <div class="container">
-        @if (TempData["SuccessMessage"] != null)
+         @if (TempData["SuccessMessage"] != null)
         {
             <div class="alert alert-success">
                 @TempData["SuccessMessage"]
@@ -81,10 +78,8 @@
         </main>
     </div>
 
-    <footer class="footer position-relative text-muted" style="height: 30px">
-        <div class="text-center">
-            &copy; 2024 - HotelsApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <footer class="footer position-relative text-muted text-center" style="height: 30px;">
+        &copy; 2024 - HotelApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -92,5 +87,4 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
-
 </html>
