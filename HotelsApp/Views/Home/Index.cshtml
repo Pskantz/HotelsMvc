@@ -4,7 +4,8 @@
 
 <form method="get" asp-controller="Home" asp-action="Index">
     <div class="form-group">
-        <input type="text" name="searchString" class="form-control" placeholder="Search hotels..." value="@ViewData["CurrentFilter"]" />
+        <input type="text" name="searchString" class="form-control" placeholder="Search hotels..."
+            value="@ViewData["CurrentFilter"]" />
     </div>
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
