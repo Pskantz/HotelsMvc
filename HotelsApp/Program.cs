@@ -39,7 +39,6 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
-// Skapa administratörsanvändare
 using (var scope = app.Services.CreateScope())
 {
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
@@ -60,9 +59,9 @@ using (var scope = app.Services.CreateScope())
     {
         var result = await userManager.CreateAsync(adminUser, adminPassword);
         if (result.Succeeded && !string.IsNullOrEmpty(adminRole.Name))
-    {
-    await userManager.AddToRoleAsync(adminUser, adminRole.Name);
-    }
+        {
+            await userManager.AddToRoleAsync(adminUser, adminRole.Name);
+        }
 
     }
 }

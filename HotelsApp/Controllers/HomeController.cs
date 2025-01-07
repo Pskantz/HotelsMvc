@@ -1,4 +1,3 @@
-// filepath: /C:/Users/patri/Documents/GitHub/HotelsMvc/HotelsApp/Controllers/HomeController.cs
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using HotelApp.Data;
@@ -16,7 +15,7 @@ namespace HotelApp.Controllers
             _context = context;
         }
 
-       public IActionResult Index(string searchString)
+        public IActionResult Index(string searchString)
         {
             ViewData["CurrentFilter"] = searchString;
 
@@ -31,7 +30,6 @@ namespace HotelApp.Controllers
             return View(hotels.ToList());
         }
 
-        // Skapa hotell - GET
         [Authorize]
         public IActionResult AddHotel()
         {
@@ -42,7 +40,6 @@ namespace HotelApp.Controllers
             return Forbid();
         }
 
-        // Skapa hotell - POST
         [HttpPost]
         [Authorize]
         public IActionResult AddHotel(Hotel hotel)
@@ -60,7 +57,6 @@ namespace HotelApp.Controllers
             return Forbid();
         }
 
-        // Redigera hotell - GET
         public IActionResult EditHotel(int id)
         {
             var hotel = _context.Hotels.FirstOrDefault(h => h.Id == id);
@@ -71,7 +67,6 @@ namespace HotelApp.Controllers
             return View(hotel);
         }
 
-        // Redigera hotell - POST
         [HttpPost]
         public IActionResult EditHotel(Hotel hotel)
         {
@@ -84,7 +79,6 @@ namespace HotelApp.Controllers
             return View(hotel);
         }
 
-        // Boka hotell - GET
         public IActionResult BookHotel(int id)
         {
             var hotel = _context.Hotels.FirstOrDefault(h => h.Id == id);
@@ -101,7 +95,6 @@ namespace HotelApp.Controllers
             return View(model);
         }
 
-        // Boka hotell - POST
         [HttpPost]
         public IActionResult BookHotel(BookViewModel model)
         {
@@ -119,10 +112,10 @@ namespace HotelApp.Controllers
                 switch (model.RoomType)
                 {
                     case "Double":
-                        roomPrice *= 1.2m; // Increase by 20%
+                        roomPrice *= 1.2m;
                         break;
                     case "Suite":
-                        roomPrice *= 1.5m; // Increase by 50%
+                        roomPrice *= 1.5m;
                         break;
                 }
 
@@ -146,7 +139,6 @@ namespace HotelApp.Controllers
             return View(model);
         }
 
-        // Visa bokade hotell
         public IActionResult BookedHotels()
         {
             var userName = User.Identity?.Name;
@@ -154,7 +146,6 @@ namespace HotelApp.Controllers
             return View(bookings);
         }
 
-        // Redigera bokning - GET
         public IActionResult EditBooking(int id)
         {
             var booking = _context.Bookings.Include(b => b.Hotel).FirstOrDefault(b => b.Id == id);
@@ -165,7 +156,6 @@ namespace HotelApp.Controllers
             return View(booking);
         }
 
-        // Redigera bokning - POST
         [HttpPost]
         public IActionResult EditBooking(Booking booking)
         {
@@ -175,12 +165,6 @@ namespace HotelApp.Controllers
                 booking.CheckOut = DateTime.SpecifyKind(booking.CheckOut, DateTimeKind.Utc);
 
                 var nights = (booking.CheckOut - booking.CheckIn).Days;
-
-                // if (booking.Hotel == null)
-                // {
-                //     ModelState.AddModelError(string.Empty, "Hotel information is missing.");
-                //     return View(booking);
-                // }
 
                 var hotel = _context.Hotels.FirstOrDefault(h => h.Id == booking.HotelId);
                 if (hotel == null)
@@ -192,10 +176,10 @@ namespace HotelApp.Controllers
                 switch (booking.RoomType)
                 {
                     case "Double":
-                        roomPrice *= 1.2m; // Increase by 20%
+                        roomPrice *= 1.2m;
                         break;
                     case "Suite":
-                        roomPrice *= 1.5m; // Increase by 50%
+                        roomPrice *= 1.5m;
                         break;
                 }
 
@@ -210,7 +194,6 @@ namespace HotelApp.Controllers
             return View(booking);
         }
 
-        // Ta bort bokning
         [HttpPost]
         public IActionResult DeleteBooking(int id)
         {
@@ -224,7 +207,6 @@ namespace HotelApp.Controllers
             return RedirectToAction("BookedHotels");
         }
 
-        // Ta bort hotell
         [HttpPost]
         public IActionResult DeleteHotel(int id)
         {
