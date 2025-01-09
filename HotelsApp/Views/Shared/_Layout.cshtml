@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <link rel="icon" href="~/Images/Hotel (4).png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title class="justify-content-center align-items-center">@ViewData["Title"] - HotelApp</title>
     <link rel="stylesheet" href="~/css/site.css" />
@@ -12,6 +13,13 @@
         body {
             height: 100%;
             margin: 0;
+            overflow: -moz-scrollbars-none;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
         }
 
         .wrapper {
@@ -38,7 +46,8 @@
             <nav class="navbar navbar-expand-md">
                 <div class="container">
                     <a class="navbar-brand position-relative start-50 translate-middle-x" asp-area=""
-                        asp-controller="Home" asp-action="Index" style="font-size: 30px;">HotelApp</a>
+                        asp-controller="Home" asp-action="Index" style="font-size: 30px;"><img
+                            src="~/Images/Hotel (3).png" alt="HotelApp Logo" style="height: 270px;"></a>
 
                     <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false"
