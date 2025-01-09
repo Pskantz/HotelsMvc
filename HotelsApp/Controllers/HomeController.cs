@@ -231,5 +231,21 @@ namespace HotelApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> HotelSuggestions(string searchTerm)
+        {
+            if (string.IsNullOrEmpty(searchTerm) || searchTerm.Length < 3)
+            {
+                return BadRequest("Search term must be at least 3 characters long.");
+            }
+
+            var suggestions = await _context.Hotels
+                .Where(h => h.Name.Contains(searchTerm) || h.Location.Contains(searchTerm))
+                .Select(h => new { h.Id, h.Name, h.Location, h.Price, h.ImageUrl })
+                .ToListAsync();
+
+            return Json(suggestions);
+        }
     }
 }
