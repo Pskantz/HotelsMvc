@@ -1,20 +1,20 @@
 @model HotelApp.Models.RegisterViewModel
 
 <div class="d-flex justify-content-center align-items-center">
-    <form asp-action="Register" method="post" class="form-group field">
+    <form asp-action="Register" method="post" class="form-group field col-md-6">
         <div class="form-group">
-            <label asp-for="Email"></label>
-            <input asp-for="Email" class="form-control" />
+            @* <label asp-for="Email"></label> *@
+            <input asp-for="Email" class="form-control mb-4" placeholder="Email" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Password"></label>
-            <input asp-for="Password" class="form-control" />
+            @* <label asp-for="Password"></label> *@
+            <input asp-for="Password" class="form-control mb-4" placeholder="Password" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="ConfirmPassword"></label>
-            <input asp-for="ConfirmPassword" class="form-control" />
+            @* <label asp-for="ConfirmPassword"></label> *@
+            <input asp-for="ConfirmPassword" class="form-control mb-4" placeholder="Confirm password" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
         <div class="d-flex justify-content-center align-items-center">
