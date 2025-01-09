@@ -23,7 +23,7 @@
 <div class="row mt-3">
     @foreach (var hotel in Model)
     {
-        <div class="col-md-4">
+        <div class="col-md-4" id="hotel-@hotel.Id">
             <div class="card mb-4 shadow-sm">
                 <img src="@hotel.ImageUrl" class="card-img-top" alt="@hotel.Name">
                 <div class="card-body">
@@ -53,6 +53,8 @@
 </div>
 
 <script>
+    const isLoggedIn = @User.Identity?.IsAuthenticated.ToString().ToLower();
+
     async function fetchSuggestions() {
         const searchTerm = document.getElementById('searchString').value;
         const suggestionsList = document.getElementById('suggestions');
@@ -73,7 +75,14 @@
                 ${suggestion.name} - ${suggestion.location} - ${suggestion.price} €
             `;
             li.onclick = () => {
-                window.location.href = `/Home/BookHotel?id=${suggestion.id}`;
+                if (isLoggedIn === 'true') {
+                    window.location.href = `/Home/BookHotel?id=${suggestion.id}`;
+                } else {
+                    const hotelCard = document.getElementById(`hotel-${suggestion.id}`);
+                    if (hotelCard) {
+                        hotelCard.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
             };
             suggestionsList.appendChild(li);
         });

@@ -1,3 +1,5 @@
+const isLoggedIn = @User.Identity?.IsAuthenticated ? true : false;
+
 async function fetchSuggestions() {
     const searchTerm = document.getElementById('searchString').value;
     const suggestionsList = document.getElementById('suggestions');
@@ -15,7 +17,14 @@ async function fetchSuggestions() {
         li.classList.add('list-group-item');
         li.textContent = `${suggestion.name} - ${suggestion.location} - ${suggestion.price} €`;
         li.onclick = () => {
-            window.location.href = `/Home/BookHotel?id=${suggestion.id}`;
+            if (isLoggedIn) {
+                window.location.href = `/Home/BookHotel?id=${suggestion.id}`;
+            } else {
+                const hotelCard = document.getElementById(`hotel-${suggestion.id}`);
+                if (hotelCard) {
+                    hotelCard.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
         };
         suggestionsList.appendChild(li);
     });
