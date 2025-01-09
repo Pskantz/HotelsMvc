@@ -15,20 +15,32 @@ namespace HotelApp.Controllers
             _context = context;
         }
 
-        public IActionResult Index(string searchString)
-        {
-            ViewData["CurrentFilter"] = searchString;
+        public IActionResult Index(string searchString, decimal? minPrice, decimal? maxPrice)
+{
+    ViewData["CurrentFilter"] = searchString;
+    ViewData["MinPrice"] = minPrice;
+    ViewData["MaxPrice"] = maxPrice;
 
-            var hotels = from h in _context.Hotels
-                         select h;
+    var hotels = from h in _context.Hotels
+                 select h;
 
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                hotels = hotels.Where(s => s.Name.Contains(searchString) || s.Location.Contains(searchString));
-            }
+    if (!string.IsNullOrEmpty(searchString))
+    {
+        hotels = hotels.Where(s => s.Name.Contains(searchString) || s.Location.Contains(searchString));
+    }
 
-            return View(hotels.ToList());
-        }
+    if (minPrice.HasValue)
+    {
+        hotels = hotels.Where(h => h.Price >= minPrice.Value);
+    }
+
+    if (maxPrice.HasValue)
+    {
+        hotels = hotels.Where(h => h.Price <= maxPrice.Value);
+    }
+
+    return View(hotels.ToList());
+}
 
         [Authorize]
         public IActionResult AddHotel()
