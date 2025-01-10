@@ -29,13 +29,13 @@
             <label for="CheckIn">Check-In Date</label>
             <input type="date" class="form-control" id="CheckIn" name="CheckIn"
                 value="@Model.CheckIn.ToString("yyyy-MM-dd")" required onchange="CalculateTotalPrice()"
-                min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                min="@DateTime.Now.ToString("yyyy-MM-dd")" onclick="this.showPicker()" />
         </div>
         <div class="form-group">
             <label for="CheckOut">Check-Out Date</label>
             <input type="date" class="form-control" id="CheckOut" name="CheckOut"
                 value="@Model.CheckOut.ToString("yyyy-MM-dd")" required onchange="CalculateTotalPrice()"
-                min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                min="@DateTime.Now.ToString("yyyy-MM-dd")" onclick="this.showPicker()" />
         </div>
         <div class="form-group">
             <label for="Price">Price per Night</label>

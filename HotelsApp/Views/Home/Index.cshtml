@@ -1,11 +1,10 @@
 ﻿@model IEnumerable<HotelApp.Models.Hotel>
 
 <form method="get" asp-controller="Home" asp-action="Index">
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-3">
         <div class="form-group col-md-6 mb-3">
             <div class="input-group">
-                <input type="text" id="searchString" name="searchString" class="form-control"
-                    placeholder="Search hotels..." value="@ViewData["CurrentFilter"]" oninput="fetchSuggestions()" />
+                <input type="text" id="searchString" name="searchString" class="form-control" placeholder="Search hotels..." value="@ViewData["CurrentFilter"]" oninput="fetchSuggestions()" />
                 <button type="submit" class="btn btn-primary">Search</button>
             </div>
             <ul id="suggestions" class="list-group mt-2"></ul>
@@ -13,12 +12,10 @@
     </div>
     <div class="d-flex justify-content-center mt-3">
         <div class="form-group col-md-3 mb-3">
-            <input type="number" name="minPrice" class="form-control" placeholder="Min Price"
-                value="@ViewData["MinPrice"]" />
+            <input type="number" name="minPrice" class="form-control" placeholder="Min Price" value="@ViewData["MinPrice"]" />
         </div>
         <div class="form-group col-md-3 mb-3">
-            <input type="number" name="maxPrice" class="form-control" placeholder="Max Price"
-                value="@ViewData["MaxPrice"]" />
+            <input type="number" name="maxPrice" class="form-control" placeholder="Max Price" value="@ViewData["MaxPrice"]" />
         </div>
     </div>
 </form>
@@ -56,7 +53,7 @@
 </div>
 
 <script>
-    const isLoggedIn = @User.Identity?.IsAuthenticated.ToString().ToLower();
+    const isLoggedIn = '@User.Identity?.IsAuthenticated'.toLowerCase() === 'true';
 
     async function fetchSuggestions() {
         const searchTerm = document.getElementById('searchString').value;
@@ -78,7 +75,7 @@
                 ${suggestion.name} - ${suggestion.location} - ${suggestion.price} €
             `;
             li.onclick = () => {
-                if (isLoggedIn === 'true') {
+                if (isLoggedIn) {
                     window.location.href = `/Home/BookHotel?id=${suggestion.id}`;
                 } else {
                     const hotelCard = document.getElementById(`hotel-${suggestion.id}`);
