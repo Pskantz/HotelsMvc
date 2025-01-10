@@ -1,23 +1,26 @@
 @model HotelApp.Models.Hotel
 
-<h1>Add Hotel</h1>
-
-<form method="post">
-    <div class="form-group">
-        <label for="Name">Hotel Name</label>
-        <input type="text" class="form-control" id="Name" name="Name" required />
-    </div>
-    <div class="form-group">
-        <label for="Location">Location</label>
-        <input type="text" class="form-control" id="Location" name="Location" required />
-    </div>
-    <div class="form-group">
-        <label for="ImageUrl">Image URL</label>
-        <input type="text" class="form-control" id="ImageUrl" name="ImageUrl" required />
-    </div>
-    <div class="form-group">
-        <label for="Price">Price per Night</label>
-        <input type="number" class="form-control" id="Price" name="Price" required />
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">Add Hotel</button>
-</form>
+<h1 class="text-center">Add Hotel</h1>
+<div class="d-flex justify-content-center align-items-center">
+    <form method="post" class="col-md-6">
+        <div class="form-group">
+            <label for="Name">Hotel Name</label>
+            <input type="text" class="form-control" id="Name" name="Name" required />
+        </div>
+        <div class="form-group">
+            <label for="Location">Location</label>
+            <input type="text" class="form-control" id="Location" name="Location" required />
+        </div>
+        <div class="form-group">
+            <label for="ImageUrl">Image URL</label>
+            <input type="text" class="form-control" id="ImageUrl" name="ImageUrl" required />
+        </div>
+        <div class="form-group">
+            <label for="Price">Price per Night</label>
+            <input type="number" class="form-control" id="Price" name="Price" required />
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <button type="submit" class="btn btn-primary mt-3">Add Hotel</button>
+        </div>
+    </form>
+</div>

@@ -1,50 +1,54 @@
 @model HotelApp.Models.Booking
 
-<h1>Edit Booking</h1>
+<h1 class="text-center">Edit Booking</h1>
 
-<form method="post">
-    <div class="form-group">
-        <label for="CustomerName"></label>
-        <input type="hidden" class="form-control" id="CustomerName" name="CustomerName" value="@Model.CustomerName"
-            readonly />
-    </div>
-    <div class="form-group">
-        <label for="HotelId"></label>
-        <input type="hidden" class="form-control" id="HotelId" name="HotelId" value="@Model.HotelId" readonly />
-    </div>
-    <div class="form-group">
-        <label for="Hotel">Hotel</label>
-        <input type="text" class="form-control" id="Hotel" name="Hotel" value="@Model.Hotel?.Name" readonly />
-    </div>
-    <div class="form-group">
-        <label for="RoomType">Room Type</label>
-        <select class="form-control" id="RoomType" name="RoomType" required onchange="UpdatePrice()">
-            <option value="Single" selected="@(Model.RoomType == "Single")">Single</option>
-            <option value="Double" selected="@(Model.RoomType == "Double")">Double</option>
-            <option value="Suite" selected="@(Model.RoomType == "Suite")">Suite</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="CheckIn">Check-In Date</label>
-        <input type="date" class="form-control" id="CheckIn" name="CheckIn"
-            value="@Model.CheckIn.ToString("yyyy-MM-dd")" required onchange="CalculateTotalPrice()"
-            min="@DateTime.Now.ToString("yyyy-MM-dd")" />
-    </div>
-    <div class="form-group">
-        <label for="CheckOut">Check-Out Date</label>
-        <input type="date" class="form-control" id="CheckOut" name="CheckOut"
-            value="@Model.CheckOut.ToString("yyyy-MM-dd")" required onchange="CalculateTotalPrice()"
-            min="@DateTime.Now.ToString("yyyy-MM-dd")" />
-    </div>
-    <div class="form-group">
-        <label for="Price">Price per Night</label>
-        <input type="number" class="form-control" id="Price" name="Price" value="@Model.Hotel?.Price" readonly />
-    </div>
-    <div class="form-group">
-        <span id="total-price"></span>
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
-</form>
+<div class="d-flex justify-content-center align-items-center">
+    <form method="post" class="col-md-6">
+        <div class="form-group">
+            <label for="CustomerName"></label>
+            <input type="hidden" class="form-control" id="CustomerName" name="CustomerName" value="@Model.CustomerName"
+                readonly />
+        </div>
+        <div class="form-group">
+            <label for="HotelId"></label>
+            <input type="hidden" class="form-control" id="HotelId" name="HotelId" value="@Model.HotelId" readonly />
+        </div>
+        <div class="form-group">
+            <label for="Hotel">Hotel</label>
+            <input type="text" class="form-control" id="Hotel" name="Hotel" value="@Model.Hotel?.Name" readonly />
+        </div>
+        <div class="form-group">
+            <label for="RoomType">Room Type</label>
+            <select class="form-control" id="RoomType" name="RoomType" required onchange="UpdatePrice()">
+                <option value="Single" selected="@(Model.RoomType == "Single")">Single</option>
+                <option value="Double" selected="@(Model.RoomType == "Double")">Double</option>
+                <option value="Suite" selected="@(Model.RoomType == "Suite")">Suite</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="CheckIn">Check-In Date</label>
+            <input type="date" class="form-control" id="CheckIn" name="CheckIn"
+                value="@Model.CheckIn.ToString("yyyy-MM-dd")" required onchange="CalculateTotalPrice()"
+                min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="form-group">
+            <label for="CheckOut">Check-Out Date</label>
+            <input type="date" class="form-control" id="CheckOut" name="CheckOut"
+                value="@Model.CheckOut.ToString("yyyy-MM-dd")" required onchange="CalculateTotalPrice()"
+                min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="form-group">
+            <label for="Price">Price per Night</label>
+            <input type="number" class="form-control" id="Price" name="Price" value="@Model.Hotel?.Price" readonly />
+        </div>
+        <div class="form-group">
+            <span id="total-price"></span>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+        </div>
+    </form>
+</div>
 
 <script>
     let basePrice = @Model.Hotel?.Price;
